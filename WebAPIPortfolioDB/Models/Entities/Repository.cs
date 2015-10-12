@@ -5,12 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using WebAPIPortfolioDB.Data.Context;
-using WebAPIPortfolioDB.Models.Entities;
 using WebAPIPortfolioDB.Models.Interfaces;
 
-namespace WebAPIPortfolioDB.Data.Repositories
+namespace WebAPIPortfolioDB.Models.Entities
 {
-    public class RepositoryBase<TEntity> : IRepository<TEntity> where TEntity :class 
+    public class Repository<TEntity> : IRepository<TEntity> where TEntity : class
     {
         protected Contexto ctx = new Contexto();
         public void Add(TEntity obj)
@@ -39,6 +38,7 @@ namespace WebAPIPortfolioDB.Data.Repositories
         public void Delete(TEntity obj)
         {
             ctx.Set<TEntity>().Remove(obj);
+            ctx.SaveChanges();
         }
     }
 }

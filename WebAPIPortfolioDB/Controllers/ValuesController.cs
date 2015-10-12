@@ -3,22 +3,34 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Http;
+using System.Net.Http.Formatting;
+using System.Reflection;
 using System.Web.Http;
+using System.Web.Http.Cors;
+using System.Web.UI.WebControls;
+using System.Xml;
+using System.Xml.Linq;
+using WebAPIPortfolioDB.Models.Entities;
+using ClienteRepository = WebAPIPortfolioDB.Data.Repositories.ClienteRepository;
 
 namespace WebAPIPortfolioDB.Controllers
 {
+    [EnableCors(origins: "http://localhost:3821", headers: "*", methods: "*")]
     public class ValuesController : ApiController
     {
+        ClienteRepository clienteRepository = new ClienteRepository();
         // GET api/values
-        public IEnumerable<string> Get()
+        public List<Cliente> Get()
         {
-            return new string[] { "value1", "value2" };
+            var l = clienteRepository.Listar();
+
+            return (List<Cliente>) l;
         }
 
         // GET api/values/5
-        public string Get(int id)
+        public Cliente Get(int id)
         {
-            return "value";
+            return clienteRepository.Buscar(id);
         }
 
         // POST api/values

@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using WebAPIPortfolioDB.Models.Entities;
 
 namespace WebAPIPortfolioDB.Models.Interfaces
 {
-    public interface IRepositoryBase<TEntity> where TEntity : class
+    public interface IRepository<TEntity> where TEntity : class
     {
         void Add(TEntity obj);
 
-        List<TEntity> Listar();
+        IEnumerable<TEntity> Listar();
 
         TEntity Buscar(int id);
 
