@@ -11,20 +11,22 @@ using System.Web.UI.WebControls;
 using System.Xml;
 using System.Xml.Linq;
 using WebAPIPortfolioDB.Models.Entities;
-using ClienteRepository = WebAPIPortfolioDB.Data.Repositories.ClienteRepository;
+
 
 namespace WebAPIPortfolioDB.Controllers
 {
-    [EnableCors(origins: "http://localhost:3821", headers: "*", methods: "*")]
-    public class ValuesController : ApiController
+  //[EnableCors(origins: "http://danielpassos-portfolio.azurewebsites.net", headers: "*", methods: "*")] // Apontando para o site
+    [EnableCors(origins: "http://localhost:3821", headers: "*", methods: "*")]// Apontando para localhost
+    public class ClienteController : ApiController
     {
         ClienteRepository clienteRepository = new ClienteRepository();
         // GET api/values
-        public List<Cliente> Get()
+        //public List<Cliente> Get()    //usando assinatura comum
+        public HttpResponseMessage Get()          //usando assinatura para webAPI
         {
             var l = clienteRepository.Listar();
-
-            return (List<Cliente>) l;
+            //return (List<Cliente>)l;
+            return Request.CreateResponse(HttpStatusCode.OK, l);
         }
 
         // GET api/values/5
